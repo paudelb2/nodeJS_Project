@@ -6,7 +6,7 @@ var localStorage = new LocalStorage('./scratch');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-	res.render('login');
+	res.render('login', {data: {active: 1, login : false}});
 });
 
 router.post('/', function (req, res, next) {
