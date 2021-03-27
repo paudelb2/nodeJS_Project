@@ -1,10 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const newsModel = mongoose.model('news');
-const router = express.Router();
+var express = require('express');
+//var mongoose = require('mongoose');
+//const newsModel = mongoose.model('news');
+var router = express.Router();
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
 const User = require('../model/user');
+const NewsModel = require('../model/news.model');
 const jwt = require('jsonwebtoken');
 
 
@@ -47,24 +48,34 @@ router.get('/', async(req,res)=>{
 
 router.post('/', (req,res)=>{
  
-   const postnews = new newsModel()
+  // const postnews = new newsModel()
+    console.log('body:')
+    console.log(req.body);
 
-      postnews.title= req.body.title,
-      postnews.description= req.body.description,
-      postnews.url= req.body.url,
-      postnews.urlToImage= req.body.urlToImage,
-      postnews.publishedAt= req.body.publishedAt
+    let newsDao = new NewsModel(req.body);
+   
+    //   postnews.title= req.body.title,
+    //   postnews.description= req.body.description,
+    //   postnews.url= req.body.url,
+    //   postnews.urlToImage= req.body.urlToImage,
+    //   postnews.publishedAt= req.body.publishedAt
 
 
     if(req.body.title&&req.body.description&&req.body.url&&req.body.urlToImage&&req.body.publishedAt){
        
-    postnews.save((err)=>{
+    newsDao.save((err,data)=>{
         if(!err)
         {
+            console.log('news saved in db');
+            console.log(data);
             res.send('success');
+            
         }
         else{
-            res.send('Error' +err);
+            
+            console.log('Error in newsschema');
+            res.send('Error ' +err);
+            
         }
         });
     }

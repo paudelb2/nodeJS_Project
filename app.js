@@ -1,4 +1,3 @@
-const connection = require('./model/connect');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,6 +8,7 @@ var passport = require('passport');
 require('./model/user');
 //connecting passport config
 require('./config/passportConfig');
+require('./model/news.model');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose = require('./mongo');
+
 
 var NewsSchema = new mongoose.Schema({
     title: {type:String},
