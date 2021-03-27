@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
 			console.log('msg: User Account Created Successfully!');
 			res.render('login', {data: {active: 1, login : false}});
 		} else {
-			console.log('error occurred');
+			console.log(err);
 			res.render('register', {data: {active: 2, login : false}});
 		}
 	});
