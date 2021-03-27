@@ -29,13 +29,16 @@
     <tbody>
       <% NewsSchema.forEach(news => {%>
         <tr>
+          <form method="POST" action="http://localhost:3000/data">
+
+            <input type ='submit' id='newsTitle%' placeholder="News Title" value='<%= news.newsTitle%>'>> 
+            <input type ='submit' id='newsDescription' placeholder="News Description" value='<%= news.newsDescription%>'>
+          
           <td><%= news.title %></td>
           <td><%= news.description %></td>
           <td><%= news.publishedAt %></td>
-          <td>
-            <button>Edit</button>
-            <button>Delete</button>
-        </td>
+          
+      </form>
         </tr>
            <%})%>
     </tbody>
