@@ -31,7 +31,7 @@ router.post('/', function (req, res, next) {
 			if (user.isAdmin) {
 				console.log('admin');
 				//render the news form(rendering index for now)
-				res.redirect('/');
+				res.redirect('/news');
 			} else {
 				console.log('not admin');
 				//in the case of not admin just show the hompage or login
