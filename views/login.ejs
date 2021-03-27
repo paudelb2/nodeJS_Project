@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+     <head>
+          <title>
+               login
+          </title>
+          <link rel='stylesheet' href='/stylesheets/style.css' />
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+               integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+               crossorigin="anonymous" />
+     </head>
+
+     <body>
+          <h4 class="mar-left-top">LOG IN</h4>
+          <div class="container">
+               <form class="col-md-3 offset-md-4 mb-4" method="POST" action="http://localhost:3000/login">
+                    <label for="email">Email</label>
+                    <input class="form-control mb-3" id="email" type="text" name="email" placeholder="email" />
+                    <label for="password">Password</label>
+                    <input class="form-control mb-3" type="text" id="password" name="password" placeholder="password" />
+                    <button class="button" type="submit">Log In</button>
+                    <button class="button" type="reset">Reset</button>
+               </form>
+          </div>
+     </body>
+
+</html>
