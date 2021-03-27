@@ -1,0 +1,14 @@
+body {
+	padding: 50px;
+	font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #00b7ff;
+}
+
+.mar-left-top {
+	margin-top: 5%;
+	margin-left: 40%;
+	margin-bottom: 5%;
+}
