@@ -1,6 +1,4 @@
 var express = require('express');
-//var mongoose = require('mongoose');
-//const newsModel = mongoose.model('news');
 var router = express.Router();
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
@@ -54,13 +52,6 @@ router.post('/', (req,res)=>{
 
     let newsDao = new NewsModel(req.body);
    
-    //   postnews.title= req.body.title,
-    //   postnews.description= req.body.description,
-    //   postnews.url= req.body.url,
-    //   postnews.urlToImage= req.body.urlToImage,
-    //   postnews.publishedAt= req.body.publishedAt
-
-
     if(req.body.title&&req.body.description&&req.body.url&&req.body.urlToImage&&req.body.publishedAt){
        
     newsDao.save((err,data)=>{

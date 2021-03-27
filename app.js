@@ -14,7 +14,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
-var newsRouter = require('./routes/news');
+var newsRouter = require('./routes/newsform');
 
 
 var app = express();
