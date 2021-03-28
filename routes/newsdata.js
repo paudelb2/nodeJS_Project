@@ -65,21 +65,43 @@ router.post('/', (req, res) => {
 // });
 
 // Update User
-router.put('/update_article',(req,res)=>{
-    db.collection(news)
-        .findOneAndUpdate({"title":req.body.name},{
+router.put('/',(req,res, next)=>{
+	console.log('Im in put method')
+    NewsModel.findOneAndUpdate( 
+
+		{"title":req.body.title},{
             $set:{
-                name:req.body.name,
-                email:req.body.email,
-                phone:req.body.phone
+                name: req.body.title,
+                email: req.body.description
+
             }
         },{
             upsert:true
         },(err,result) => {
-            if(err) return res.send(err);
-            res.send(result)
+            if(err) {
+			console.log('ERROR OCCURED HERE')
+			res.send(err);
+			} else{
+				console.log(result);
+			}
         })
 })
+
+
+	
+        // .findOneAndUpdate({"title":req.body.name},{
+        //     $set:{
+        //         name:req.body.name,
+        //         email:req.body.email,
+        //         phone:req.body.phone
+        //     }
+        // },{
+        //     upsert:true
+        // },(err,result) => {
+        //     if(err) return res.send(err);
+        //     res.send(result)
+        // })
+// });
 
 // error handler
 router.use(function (err, req, res, next) {
