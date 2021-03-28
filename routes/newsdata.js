@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
 
 // Update User
 router.put('/update_article',(req,res)=>{
-    db.collection(col_name)
+    db.collection(news)
         .findOneAndUpdate({"title":req.body.name},{
             $set:{
                 name:req.body.name,
