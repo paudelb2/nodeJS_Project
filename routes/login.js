@@ -6,6 +6,7 @@ var localStorage = new LocalStorage('./scratch');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+	localStorage.clear();
 	res.render('login', { data: { active: 1, login: false } });
 });
 
@@ -46,3 +47,5 @@ router.post('/', function (req, res, next) {
 	})(req, res);
 });
 module.exports = router;
+
+// express --view=ejs 'projectname'
