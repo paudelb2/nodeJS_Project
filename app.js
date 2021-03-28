@@ -3,21 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var passport = require('passport');
 //connecting the models here directly
 require('./model/user');
 //connecting passport config
 require('./config/passportConfig');
+require('./model/news.model');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
-
-
+var newsRouter = require('./routes/newsform');
+var newsDataRouter = require('./routes/newsdata');
 
 var app = express();
+const port = 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,7 +34,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
-
+app.use('/news', newsRouter);
+app.use('/data', newsDataRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));

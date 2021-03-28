@@ -3,7 +3,7 @@ var router = express.Router();
 const User = require('../model/user');
 
 router.get('/', function (req, res, next) {
-	res.render('register');
+	res.render('register',{data: {active: 2, login : false}});
 });
 
 router.post('/', function (req, res, next) {
@@ -24,10 +24,10 @@ router.post('/', function (req, res, next) {
 	userDao.save((err, data) => {
 		if (!err) {
 			console.log('msg: User Account Created Successfully!');
-			res.render('login');
+			res.render('login', {data: {active: 1, login : false}});
 		} else {
-			console.log('error occurred');
-			res.render('register');
+			console.log(err);
+			res.render('register', {data: {active: 2, login : false}});
 		}
 	});
 });

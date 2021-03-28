@@ -26,13 +26,13 @@ router.get('/', function (req, res, next) {
 		} else {
 			if (user.isAdmin) {
 				console.log('admin');
-				res.render('index', { title: 'express-app' });
+				res.render('index', {data:{ title: 'express-app', active: 3, login : true}});
 			} else {
 				console.log('non-admin');
 				res.send('I am not an admin');
 			}
 		}
 	});
-});
+})
 
 module.exports = router;
