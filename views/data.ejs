@@ -1,123 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <%- include('header.ejs') %>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title >News Articles</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-  <!-- For DataTables -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-</head>
+  <head>
+    <%- include('header.ejs') %>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>News Articles</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+      <!-- For DataTables -->
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+      <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+      <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
 
-<body>
+  </head>
 
-  <h1 style= " text-align: center;">News Articles</h1>
-  <div class="container">
-    <table id="table_id" class="display">
-    <thead>
-      <tr>
-      
-        <th>Title</th>
-        <th>Description</th>
-        <th>Published date</th>
-        <th>Actions</th>
+  <body>
 
-      </tr>
+    <h1 style=" text-align: center;">News Articles</h1>
+    <div class="container">
+      <table id="table_id" class="display">
+        <thead>
+          <tr>
+            <th>NewsID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Published date</th>
+            <th>Actions</th>
 
-    </thead>
-    
-    <tbody>
-      <% for(var i=0; i<data.news.length; i++) {%>
-        <tr>
-          <form method="POST" action="http://localhost:3000/data">
-          
-          <td><%= data.news[i].title %></td>
-          <td><%= data.news[i].description %></td>
-          <td><%= data.news[i].publishedAt %> %></td>
-          <td>
-            <button type="button" class="update btn btn-warning"
-             data-toggle="modal" data-target="#myModal" 
-             id="<%=data.news[i].title %>">
-                Edit
-            </button>
-              <button type="button" id="<%=data.news[i].title %>" 
-                class="delete btn btn-danger" 
-                value ="<%=data.news[i].title %>">
-                Delete
-              </button>
-          </td>
-          
-      </form>
-        </tr>
-           <%} %>
-          </tbody>
-          <tfoot id="table_id" class="display">
+          </tr>
+
+        </thead>
+
+        <tbody>
+          <% for(var i=0; i<data.news.length; i++) {%>
             <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Published Date</th>
-              <th>Actions</th>
+              <form method="POST" action="http://localhost:3000/data">
+                <td>
+                  <%= data.news[i].newsId %>
+                </td>
+                <td>
+                  <%= data.news[i].title %>
+                </td>
+                <td>
+                  <%= data.news[i].description %>
+                </td>
+                <td>
+                  <%= data.news[i].publishedAt %> %>
+                </td>
+                <td>
+                  <button type="button" class="update btn btn-warning" data-toggle="modal" data-target="#myModal"
+                    id="<%=data.news[i].title %>">
+                    Edit
+                  </button>
+                  <button type="button" id="<%=data.news[i].title %>" class="delete btn btn-danger"
+                    value="<%=data.news[i].title %>">
+                    Delete
+                  </button>
+                </td>
+
+              </form>
             </tr>
-          </tfoot>
-        </table>
-        <!--  Modal Starts-->
-          <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                          <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Modal Heading</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                          
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                  <div class="container">
-                            <h2>Edit Data</h2>
-                            <form action="http://localhost:3000/data" method="PUT" id="update_article">
-                              
-                              <div class="form-group">
-                                <label for="name">Title:</label>
-                                <input type="text" class="form-control" id="update_article" placeholder="Update Title" name="title" required>
-                              </div>
-                              <div class="form-group">
-                                <label for="email">Description:</label>
-                                <input type="text" class="form-control" id="update_email" placeholder="Update Description" name="email">
-                              </div>
-                          
-                            </form>
-                          </div>
-                                </div>
-        
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                  <button type="submit" id="update_table" class="btn btn-primary">Update</button>
-                                </div>
-                              </div>
-                              </div>
-                            </div>
+            <%} %>
+        </tbody>
+        <tfoot id="table_id" class="display">
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Published Date</th>
+            <th>Actions</th>
+          </tr>
+        </tfoot>
+      </table>
+      <!--  Modal Starts-->
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-<script type="text/javascript" src="../js/delete.js"></script>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="container">
+                <h2>Edit Data</h2>
+                <form action="" method="" id="update_article">
+                  <div class="form-group">
+                    <label for="newsId">NewsID:</label>
+                    <input type="number" class="form-control" id="newsId" name="newsId" placeholder="Enter the NewsId"
+                      required>
+                  </div>
+                  <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" id="title" placeholder="Update Title" name="title">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" id="description" placeholder="Update Description"
+                      name="description">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" id="update" class="btn btn-primary">Update</button>
+                  </div>
+                </form>
+              </div>
+            </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
-  <script>
-    $(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-  </script>
-</body>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="../js/delete.js"></script>
+
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+      <script>
+        $(document).ready(function () {
+          $('#table_id').DataTable();
+        });
+      </script>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $('#update').click(function () {
+            console.log("click");
+            var newsId = $('#newsId').val();
+            var title = $('#title').val();
+            var description = $('#description').val();
+
+            console.log(newsId, title, description);
+
+            $.ajax({
+              url: 'http://localhost:3000/data',    //Your api url
+              type: 'PUT',   //type is any HTTP method
+              data: {
+                newsId: newsId,
+                title: title,
+                description: description
+              },      //Data as js object
+              success: function () {
+              }
+            })
+              ;
+
+          });
+        });
+      </script>
+
+  </body>
 
 </html>

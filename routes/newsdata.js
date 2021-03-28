@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
-var User = require('../model/user');
+const User = require('../model/user');
 const jwt = require('jsonwebtoken');
 const NewsModel = require('../model/news.model');
 
@@ -25,93 +25,88 @@ router.get('/', function (req, res, next) {
 		if (!user) {
 			res.redirect('/login');
 		} else {
-            NewsModel.find({}, (error, newsData)=>{
-                if(!error ) {
-                    console.log(newsData);
+			NewsModel.find({}, (error, newsData) => {
+				if (!error) {
+					console.log(newsData);
 					if (user.isAdmin) {
 						console.log('admin BOP BOP');
-						res.render('data', {data: { admin: true, news: newsData, active: 4, login: true}});
+						res.render('data', {
+							data: { admin: true, news: newsData, active: 4, login: true },
+						});
 					} else {
 						console.log('non-admin');
-						res.send('data', {data: { admin: false, news: newsData, active: 4, login: true }});
+						res.send('data', {
+							data: { admin: false, news: newsData, active: 4, login: true },
+						});
 					}
-				} else{
-				console.log('could not get news from db');
+				} else {
+					console.log('could not get news from db');
 				}
 			});
-	}});
+		}
+	});
 });
-
-router.post('/', (req, res) => {
-
-    console.log('body')
-    console.log(req.body);
-
-});
-
-
-
-// dataDao.save((err, data)=>{
-//     if(!err)
-//     {
-//         console.log('news saved in db');
-//         console.log(data);
-//         res.send('success');
-//     }
-//     else{
-//         console.log('error in log')
-//         res.send('Error')
-//     }
-// });
 
 // Update User
-router.put('/',(req,res, next)=>{
-	console.log('Im in put method')
-    NewsModel.findOneAndUpdate( 
+router.put('/', async (req, res, next) => {
+	//console.log('Im in put method');
+	if (req.body.newsId) {
+		console.log('body:');
+		console.log(req.body);
 
-		{"title":req.body.title},{
-            $set:{
-                name: req.body.title,
-                email: req.body.description
+		await NewsModel.findOne(
+			{ newsId: req.body.newsId },
+			async (err, newsData) => {
+				if (!err) {
+					//console.log('before update');
+					//console.log(JSON.parse(JSON.stringify(data)));
 
-            }
-        },{
-            upsert:true
-        },(err,result) => {
-            if(err) {
-			console.log('ERROR OCCURED HERE')
-			res.send(err);
-			} else{
-				console.log(result);
+					let newsId = newsData.newsId,
+						title = newsData.title,
+						description = newsData.description;
+
+					if (req.body.title !== '' && req.body.description != '') {
+						title = req.body.title;
+						description = req.body.description;
+					} else if (req.body.title == '' && req.body.description != '') {
+						description = req.body.description;
+					} else if (req.body.title !== '' && req.body.description == '') {
+						title = req.body.title;
+					}
+
+					await findOneToUpdate(newsId, title, description, res, newsData);
+				} else {
+					res.json(err);
+				}
 			}
-        })
-})
-
-
-	
-        // .findOneAndUpdate({"title":req.body.name},{
-        //     $set:{
-        //         name:req.body.name,
-        //         email:req.body.email,
-        //         phone:req.body.phone
-        //     }
-        // },{
-        //     upsert:true
-        // },(err,result) => {
-        //     if(err) return res.send(err);
-        //     res.send(result)
-        // })
-// });
-
-// error handler
-router.use(function (err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
+		);
+	}
 });
 
+var findOneToUpdate = (newsId, title, description, res, newsData) => {
+	NewsModel.findOneAndUpdate(
+		{ newsId: newsId },
+		{
+			$set: {
+				title: title,
+				description: description,
+			},
+		},
+		{
+			upsert: true,
+		},
+		(err, data) => {
+			if (err) {
+				console.log('ERROR OCCURRED HERE');
+				res.send(err);
+			} else {
+				console.log('after update');
+				console.log(JSON.parse(JSON.stringify(data)));
+				res.render('data', {
+					data: { admin: true, news: newsData, active: 4, login: true },
+				});
+			}
+		}
+	);
+};
 module.exports = router;
