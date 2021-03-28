@@ -7,7 +7,6 @@ var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-	//clear the authToken
 	localStorage.clear();
 	res.render('login', { data: { active: 1, login: false } });
 });
@@ -50,3 +49,5 @@ router.post('/', function (req, res, next) {
 });
 
 module.exports = router;
+
+// express --view=ejs 'projectname'

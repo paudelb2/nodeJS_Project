@@ -25,31 +25,33 @@ router.get('/', function (req, res, next) {
 		if (!user) {
 			res.redirect('/login');
 		} else {
-            NewsModel.find({}, (error, newsData)=>{
-                if(!error ) {
-                    console.log(newsData);
+			NewsModel.find({}, (error, newsData) => {
+				if (!error) {
+					console.log(newsData);
 					if (user.isAdmin) {
 						console.log('admin BOP BOP');
-						res.render('data', {data: { admin: true, news: newsData, active: 4, login: true}});
+						res.render('data', {
+							data: { admin: true, news: newsData, active: 4, login: true },
+							user: user,
+						});
 					} else {
 						console.log('non-admin');
-						res.send('data', {data: { admin: false, news: newsData, active: 4, login: true }});
+						res.send('data', {
+							data: { admin: false, news: newsData, active: 4, login: true },
+						});
 					}
-				} else{
-				console.log('could not get news from db');
+				} else {
+					console.log('could not get news from db');
 				}
 			});
-	}});
+		}
+	});
 });
 
 router.post('/', (req, res) => {
-
-    console.log('body')
-    console.log(req.body);
-
+	console.log('body');
+	console.log(req.body);
 });
-
-
 
 // dataDao.save((err, data)=>{
 //     if(!err)
@@ -65,21 +67,25 @@ router.post('/', (req, res) => {
 // });
 
 // Update User
-router.put('/update_article',(req,res)=>{
-    db.collection(col_name)
-        .findOneAndUpdate({"title":req.body.name},{
-            $set:{
-                name:req.body.name,
-                email:req.body.email,
-                phone:req.body.phone
-            }
-        },{
-            upsert:true
-        },(err,result) => {
-            if(err) return res.send(err);
-            res.send(result)
-        })
-})
+router.put('/update_article', (req, res) => {
+	db.collection(col_name).findOneAndUpdate(
+		{ title: req.body.name },
+		{
+			$set: {
+				name: req.body.name,
+				email: req.body.email,
+				phone: req.body.phone,
+			},
+		},
+		{
+			upsert: true,
+		},
+		(err, result) => {
+			if (err) return res.send(err);
+			res.send(result);
+		}
+	);
+});
 
 // error handler
 router.use(function (err, req, res, next) {
