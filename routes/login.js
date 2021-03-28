@@ -38,7 +38,7 @@ router.post('/', function (req, res, next) {
 			} else {
 				console.log('not admin');
 				//in the case of not admin just show the hompage or login
-				res.send('open the news page');
+				res.redirect('/login');
 			}
 		} else {
 			res.send('not a valid user');

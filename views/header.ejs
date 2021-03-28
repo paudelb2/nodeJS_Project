@@ -1,36 +1,39 @@
 <html lang="en">
-	<head>
-	</head>
-	<body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Update 24X7 Admin</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-4 <%= data.login === true ? 'd-none' : '' %>
+
+  <head>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Update 24X7 Admin</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ml-4 <%= data.login === true ? 'd-none' : '' %>
                     <%= data.active === 1 ? 'active' : '' %>">
-                    <a class="nav-link" href="http://localhost:3000/login">Login </a>
-                  </li>
-                  <li class="nav-item ml-4 <%= data.login === true ? 'd-none' : '' %>
+            <a class="nav-link" href="http://localhost:3000/login">Login </a>
+          </li>
+          <li class="nav-item ml-4 <%= data.login === true ? 'd-none' : '' %>
                     <%= data.active === 2 ? 'active' : '' %>">
-                    <a class="nav-link" href="http://localhost:3000/signup">Sign Up </a>
-                  </li>
-                <li class="nav-item ml-4 <%= data.login === false ? 'd-none' : '' %>
+            <a class="nav-link" href="http://localhost:3000/signup">Sign Up </a>
+          </li>
+          <li class="nav-item ml-4 <%= data.login === false ? 'd-none' : '' %>
                     <%= data.active === 3 ? 'active' : '' %>">
-                  <a class="nav-link" href="http://localhost:3000/news">NewsForm </a>
-                </li>
-                <li class="nav-item ml-4 <%= data.login === false ? 'd-none' : '' %>
+            <a class="nav-link" href="http://localhost:3000/news">NewsForm </a>
+          </li>
+          <li class="nav-item ml-4 <%= data.login === false ? 'd-none' : '' %>
                     <%= data.active === 4 ? 'active' : '' %>">
-                  <a class="nav-link" href="http://localhost:3000/">EditNews</a>
-                </li>
-                <li class="nav-item ml-4 <%= data.login === false ? 'd-none' : '' %>">
-                    <a class="nav-link" href="http://localhost:3000/">Logout</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-    </body>
+            <a class="nav-link" href="http://localhost:3000/">EditNews</a>
+          </li>
+          <li class="nav-item ml-4 <%= data.login === false ? 'd-none' : '' %>">
+            <a class="nav-link" href="http://localhost:3000/login">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </body>
+
 </html>
