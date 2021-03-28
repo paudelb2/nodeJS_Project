@@ -74,7 +74,7 @@ router.put('/', async (req, res, next) => {
 						title = req.body.title;
 					}
 
-					await findOneToUpdate(newsId, title, description, res, newsData);
+					await findOneToUpdate(newsId, title, description, res);
 				} else {
 					res.json(err);
 				}
@@ -83,7 +83,7 @@ router.put('/', async (req, res, next) => {
 	}
 });
 
-var findOneToUpdate = (newsId, title, description, res, newsData) => {
+var findOneToUpdate = (newsId, title, description, res) => {
 	NewsModel.findOneAndUpdate(
 		{ newsId: newsId },
 		{
@@ -95,16 +95,12 @@ var findOneToUpdate = (newsId, title, description, res, newsData) => {
 		{
 			upsert: true,
 		},
-		(err, data) => {
+		(err, newsData) => {
 			if (err) {
 				console.log('ERROR OCCURRED HERE');
 				res.send(err);
 			} else {
-				console.log('after update');
-				console.log(JSON.parse(JSON.stringify(data)));
-				res.render('data', {
-					data: { admin: true, news: newsData, active: 4, login: true },
-				});
+				res.redirect('/data');
 			}
 		}
 	);
