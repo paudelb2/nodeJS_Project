@@ -32,6 +32,7 @@ router.get('/', function (req, res, next) {
 						console.log('admin BOP BOP');
 						res.render('data', {
 							data: { admin: true, news: newsData, active: 4, login: true },
+							user: user,
 						});
 					} else {
 						console.log('non-admin');
