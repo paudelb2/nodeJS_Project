@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
-var User = require('../model/user');
+const User = require('../model/user');
 const jwt = require('jsonwebtoken');
 const NewsModel = require('../model/news.model');
 
@@ -38,6 +38,7 @@ router.get('/', function (req, res, next) {
 						console.log('non-admin');
 						res.send('data', {
 							data: { admin: false, news: newsData, active: 4, login: true },
+							user: user,
 						});
 					}
 				} else {
@@ -48,54 +49,77 @@ router.get('/', function (req, res, next) {
 	});
 });
 
-router.post('/', (req, res) => {
-	console.log('body');
-	console.log(req.body);
+// Update User
+router.put('/', async (req, res, next) => {
+	//console.log('Im in put method');
+	if (req.body.newsId) {
+		console.log('body:');
+		console.log(req.body);
+
+		await NewsModel.findOne(
+			{ newsId: req.body.newsId },
+			async (err, newsData) => {
+				if (!err) {
+					//console.log('before update');
+					//console.log(JSON.parse(JSON.stringify(data)));
+
+					let newsId = newsData.newsId,
+						title = newsData.title,
+						description = newsData.description;
+
+					if (req.body.title !== '' && req.body.description != '') {
+						title = req.body.title;
+						description = req.body.description;
+					} else if (req.body.title == '' && req.body.description != '') {
+						description = req.body.description;
+					} else if (req.body.title !== '' && req.body.description == '') {
+						title = req.body.title;
+					}
+
+					await findOneToUpdate(newsId, title, description, res);
+				} else {
+					res.json(err);
+				}
+			}
+		);
+	}
 });
 
-// dataDao.save((err, data)=>{
-//     if(!err)
-//     {
-//         console.log('news saved in db');
-//         console.log(data);
-//         res.send('success');
-//     }
-//     else{
-//         console.log('error in log')
-//         res.send('Error')
-//     }
-// });
+router.delete('/', async function(req, res, next) {
+	console.log('in delete');
+	//if (req.body.id) {
+	console.log(req.body.newsId);
+	await NewsModel.deleteOne({ newsId: req.body.newsId }, (err, status) => {
+		if (!err) {
+			console.log('deleted from the db');
+			res.redirect('/data');
+		} else {
+			res.send(err);
+		}
+	});
+	//}
+});
 
-// Update User
-router.put('/update_article', (req, res) => {
-	db.collection(col_name).findOneAndUpdate(
-		{ title: req.body.name },
+var findOneToUpdate = (newsId, title, description, res) => {
+	NewsModel.findOneAndUpdate(
+		{ newsId: newsId },
 		{
 			$set: {
-				name: req.body.name,
-				email: req.body.email,
-				phone: req.body.phone,
+				title: title,
+				description: description,
 			},
 		},
 		{
 			upsert: true,
 		},
-		(err, result) => {
-			if (err) return res.send(err);
-			res.send(result);
+		(err, newsData) => {
+			if (err) {
+				console.log('ERROR OCCURRED HERE');
+				res.send(err);
+			} else {
+				res.redirect('/data');
+			}
 		}
 	);
-});
-
-// error handler
-router.use(function (err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
-});
-
+};
 module.exports = router;

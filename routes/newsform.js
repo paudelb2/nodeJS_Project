@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	// const postnews = new newsModel()
+	
 	console.log('body:');
 	console.log(req.body);
 
