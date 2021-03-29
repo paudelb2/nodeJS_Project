@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <%- include('header.ejs') %>
-    <title><%= data.title %></title>
+
+    <title>
+      <%= data.title %>
+    </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-               integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-               crossorigin="anonymous" />
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <%- include('header.ejs') %>
   </head>
+
   <body>
-    <h1><%= data.title %></h1>
-    <p>Welcome to <%= data.title %></p>
+    <h1>
+      <%= data.title %>
+    </h1>
+    <p>Welcome to <%= data.title %>
+    </p>
   </body>
+
 </html>

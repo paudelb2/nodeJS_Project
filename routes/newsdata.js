@@ -38,6 +38,7 @@ router.get('/', function (req, res, next) {
 						console.log('non-admin');
 						res.send('data', {
 							data: { admin: false, news: newsData, active: 4, login: true },
+							user: user,
 						});
 					}
 				} else {
@@ -82,6 +83,21 @@ router.put('/', async (req, res, next) => {
 			}
 		);
 	}
+});
+
+router.delete('/', async function(req, res, next) {
+	console.log('in delete');
+	//if (req.body.id) {
+	console.log(req.body.newsId);
+	await NewsModel.deleteOne({ newsId: req.body.newsId }, (err, status) => {
+		if (!err) {
+			console.log('deleted from the db');
+			res.redirect('/data');
+		} else {
+			res.send(err);
+		}
+	});
+	//}
 });
 
 var findOneToUpdate = (newsId, title, description, res) => {
