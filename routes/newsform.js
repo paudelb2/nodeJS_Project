@@ -40,7 +40,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	
 	console.log('body:');
 	console.log(req.body);
 
@@ -57,9 +56,9 @@ router.post('/', (req, res) => {
 			if (!err) {
 				console.log('news saved in db');
 				console.log(data);
-				res.send('success');
+
 			} else {
-				console.log('Error in newsschema');
+				console.log('Error in newsSchema');
 				res.send('Error ' + err);
 			}
 		});
