@@ -10,6 +10,7 @@ require('./model/user');
 require('./config/passportConfig');
 require('./model/news.model');
 require('./model/sport');
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -18,7 +19,6 @@ var loginRouter = require('./routes/login');
 var newsRouter = require('./routes/newsform');
 var newsDataRouter = require('./routes/newsdata');
 var sportsRouter = require('./routes/sports');
-
 
 var app = express();
 const port = 3000;
@@ -41,7 +41,6 @@ app.use('/news', newsRouter);
 app.use('/data', newsDataRouter);
 app.use('/sports', sportsRouter);
 
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));
@@ -56,6 +55,15 @@ app.use(function (err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	res.render('error');
+});
+
+app.use(cors(), function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); // update to match the domain you will make the request from
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	next();
 });
 
 module.exports = app;
