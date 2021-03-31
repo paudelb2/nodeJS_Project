@@ -60,13 +60,15 @@
                   <%= data.news[i].publishedAt %> %>
                 </td>
                 <td>
-                  <button type="button" class="update btn btn-warning btn-sm btn-block mb-1" data-toggle="modal"
-                    data-target="#myModal" id="<%=data.news[i].title %>">
+                  <button type="button" class="update idButtonEdit btn btn-warning btn-sm btn-block mb-1" 
+                  data-toggle="modal" data-title="<%=data.news[i].title %>" data-desc="<%=data.news[i].description %>"
+                    data-target="#myModal" data-id="<%=data.news[i].newsId %>">
                     Edit
                   </button>
 
-                  <button type="button" id="<%=data.news[i].title %>" class="delete btn btn-danger btn-block btn-sm"
-                    data-toggle="modal" data-target="#deleteModal">
+                  <button type="button" class="delete idButtonDelete btn btn-danger btn-block btn-sm"
+                    data-toggle="modal" data-title="<%=data.news[i].title %>"
+                    data-target="#deleteModal" data-id="<%=data.news[i].newsId %>"> 
                     Delete
                   </button>
 
@@ -92,28 +94,25 @@
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-              <h2 class="modal-title">Edit News By the News ID </h2>
+              <h2 class="modal-title">Edit News</h2>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-              <div class="container">
+              <div class="container text-center">
                 <h4>Update Title or Description or Both</h4>
-                <form action="" method="" id="update_article">
-                  <div class="form-group">
-                    <label for="newsId">NewsID:</label>
-                    <input type="number" class="form-control" id="newsId" name="newsId" placeholder="Enter the News Id"
-                      required>
-                  </div>
+                <form action="" class="text-left" method="" id="update_article"><br>
+                  <input type="hidden" id="idHolder1">	
+                  <label for="newsId">NewsID :</label><span class="idGet"></span><br>
                   <div class="form-group">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" id="title" placeholder="Update Title" name="title">
+                    <input type="text" class="form-control titleGet" id="title" placeholder="Update Title" name="title">
                   </div>
                   <div class="form-group">
                     <label for="description">Description:</label>
-                    <input type="text" class="form-control" id="description" placeholder="Update Description"
-                      name="description">
+                    <textarea class="form-control descGet" id="description" placeholder="Update Description"
+                      name="description"></textarea>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
@@ -133,23 +132,23 @@
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-              <h2 class="modal-title">Delete News By the News ID </h2>
+              <h2 class="modal-title">Delete News</h2>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-              <div class="container">
-                <h4>Delete A News</h4>
+              <div class="container text-center">
+                <h4>Confirm?</h4>
                 <form action="" method="" id="update_article">
-                  <div class="form-group">
-                    <label for="newsId">NewsID:</label>
-                    <input type="number" class="form-control" id="Id" name="newsId" placeholder="Enter the News Id"
-                      required>
+                  <input type="hidden" id="idHolder2">	
+                  <div class="form-group text-left">
+                    <label for="newsId">NewsID :</label><span class="idGet"></span><br>
+                    <label for="newsTitle">Title :&nbsp;</label><span class="titleGet"></span>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
-                    <button type="submit" id="delete" class="btn btn-primary btn-block">Delete</button>
+                    <button type="submit" id="delete" class="btn mb-2 btn-primary btn-block">Delete</button>
                   </div>
                 </form>
               </div>
@@ -176,11 +175,9 @@
         $(document).ready(function () {
           $('#update').click(function () {
             console.log("click");
-            var newsId = $('#newsId').val();
+            var newsId = $('#idHolder1').val();
             var title = $('#title').val();
             var description = $('#description').val();
-
-            //console.log(newsId, title, description);
 
             $.ajax({
               url: 'http://localhost:3000/data',    //Your api url
@@ -192,9 +189,7 @@
               },      //Data as js object
               success: function () {
               }
-            })
-              ;
-
+            });
           });
         });
       </script>
@@ -204,7 +199,7 @@
         $(document).ready(function () {
           $('#delete').click(function () {
             console.log("click");
-            var newsId = $('#Id').val();
+            var newsId = $('#idHolder2').val();
             console.log('newsId: ', newsId);
             $.ajax({
               url: 'http://localhost:3000/data',    //Your api url
@@ -217,6 +212,27 @@
             });
           });
         });
+      </script>
+
+      <script>
+        $(document).on("click", ".idButtonEdit", function () {
+            var newsId = $(this).data('id');
+            var newsTitle = $(this).data('title');
+            var newsDesc = $(this).data('desc');
+            $('.idGet').text( ' ' + newsId);
+            $('.titleGet').val(newsTitle);
+            $('.descGet').val(newsDesc);
+            $('#idHolder1').val(newsId);
+            console.log($('#idHolder1').val());
+        }); 
+        $(document).on("click", ".idButtonDelete", function () {
+            var newsId = $(this).data('id');
+            var newsTitle = $(this).data('title');
+            $('.idGet').text( ' ' + newsId);
+            $('.titleGet').text(newsTitle);
+            $('#idHolder2').val(newsId);
+            console.log($('#idHolder2').val());
+        }); 
       </script>
   </body>
 
