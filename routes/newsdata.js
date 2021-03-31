@@ -49,6 +49,17 @@ router.get('/', function (req, res, next) {
 	});
 });
 
+router.get('/newsDashboard', function (req, res, next) {
+	NewsModel.find({}, (error, newsData) => {
+		console.log(newsData);
+		if (!error) {
+			res.json(newsData);
+		} else {
+			console.log('could not get news from db');
+		}
+	});
+});
+
 // Update User
 router.put('/', async (req, res, next) => {
 	//console.log('Im in put method');
@@ -85,7 +96,7 @@ router.put('/', async (req, res, next) => {
 	}
 });
 
-router.delete('/', async function(req, res, next) {
+router.delete('/', async function (req, res, next) {
 	console.log('in delete');
 	//if (req.body.id) {
 	console.log(req.body.newsId);

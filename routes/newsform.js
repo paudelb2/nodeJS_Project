@@ -56,7 +56,6 @@ router.post('/', (req, res) => {
 			if (!err) {
 				console.log('news saved in db');
 				console.log(data);
-
 			} else {
 				console.log('Error in newsSchema');
 				res.send('Error ' + err);
