@@ -57,7 +57,7 @@ router.get('/newsDashboard', function (req, res, next) {
 		} else {
 			console.log('could not get news from db');
 		}
-	});
+	}).limit(3);
 });
 
 // Update User
