@@ -60,12 +60,13 @@
                   <%= data.news[i].publishedAt %> %>
                 </td>
                 <td>
-                  <button type="button" class="update btn btn-warning" data-toggle="modal" data-target="#myModal"
-                    id="<%=data.news[i].title %>">
+                  <button type="button" class="update btn btn-warning btn-sm btn-block mb-1" data-toggle="modal"
+                    data-target="#myModal" id="<%=data.news[i].title %>">
                     Edit
                   </button>
-                  <button type="button" id="<%=data.news[i].title %>" class="delete btn btn-danger" data-toggle="modal"
-                    data-target="#deleteModal">
+
+                  <button type="button" id="<%=data.news[i].title %>" class="delete btn btn-danger btn-block btn-sm"
+                    data-toggle="modal" data-target="#deleteModal">
                     Delete
                   </button>
 
@@ -115,8 +116,8 @@
                       name="description">
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" id="update" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+                    <button type="submit" id="update" class="btn btn-primary btn-block">Update</button>
                   </div>
                 </form>
               </div>
@@ -147,8 +148,8 @@
                       required>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" id="delete" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+                    <button type="submit" id="delete" class="btn btn-primary btn-block">Delete</button>
                   </div>
                 </form>
               </div>

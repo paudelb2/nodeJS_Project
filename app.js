@@ -9,6 +9,7 @@ require('./model/user');
 //connecting passport config
 require('./config/passportConfig');
 require('./model/news.model');
+require('./model/sport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -16,6 +17,8 @@ var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var newsRouter = require('./routes/newsform');
 var newsDataRouter = require('./routes/newsdata');
+var sportsRouter = require('./routes/sports');
+
 
 var app = express();
 const port = 3000;
@@ -36,6 +39,9 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/news', newsRouter);
 app.use('/data', newsDataRouter);
+app.use('/sports', sportsRouter);
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));
