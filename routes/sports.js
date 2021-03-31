@@ -8,16 +8,18 @@ const sportsSchema = require('../model/sport');
 router.get('/', async function (req, res, next) {
 	fetchSports();
 
-	await sportsSchema.find({}, (error, sportsNews) => {
-		console.log('inside find');
-		if (!error) {
-			console.log('data sent as response');
-			res.json(sportsNews);
-		} else {
-			console.log('error in retriving data');
-			console.log(error);
-		}
-	});
+	await sportsSchema
+		.find({}, (error, sportsNews) => {
+			console.log('inside find');
+			if (!error) {
+				console.log('data sent as response');
+				res.json(sportsNews);
+			} else {
+				console.log('error in retrieving data');
+				console.log(error);
+			}
+		})
+		.limit(9);
 });
 
 var fetchSports = () => {
