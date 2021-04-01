@@ -3,7 +3,7 @@ var router = express.Router();
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
 const User = require('../model/user');
-const NewsModel = require('../model/news.model');
+const NewsModel = require('../model/news');
 const jwt = require('jsonwebtoken');
 
 router.get('/', async (req, res) => {
