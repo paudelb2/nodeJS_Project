@@ -25,19 +25,19 @@ router.get('/', function (req, res, next) {
 		if (!user) {
 			res.redirect('/login');
 		} else {
-			NewsModel.find({}, (error, newsData) => {
+			NewsModel.find({}, (error, newsList) => {
 				if (!error) {
-					console.log(newsData);
+					console.log(newsList);
 					if (user.isAdmin) {
 						console.log('admin BOP BOP');
 						res.render('data', {
-							data: { admin: true, news: newsData, active: 4, login: true },
+							data: { admin: true, news: newsList, active: 4, login: true },
 							user: user,
 						});
 					} else {
 						console.log('non-admin');
 						res.send('data', {
-							data: { admin: false, news: newsData, active: 4, login: true },
+							data: { admin: false, news: newsList, active: 4, login: true },
 							user: user,
 						});
 					}
@@ -51,10 +51,10 @@ router.get('/', function (req, res, next) {
 
 //latest news
 router.get('/newsDashboard', function (req, res, next) {
-	NewsModel.find({}, (error, newsData) => {
-		console.log(newsData);
+	NewsModel.find({}, (error, newsList) => {
+		console.log(newsList);
 		if (!error) {
-			res.json(newsData);
+			res.json(newsList);
 		} else {
 			console.log('could not get news from db');
 		}
@@ -110,7 +110,7 @@ router.put('/', async (req, res, next) => {
 							} else if (req.body.title !== '' && req.body.description == '') {
 								title = req.body.title;
 							}
-							await findOneToUpdate(newsId, title, description, res);
+							findOneToUpdate(newsId, title, description, res);
 						} else {
 							res.json(err);
 						}
