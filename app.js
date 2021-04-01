@@ -8,7 +8,7 @@ var passport = require('passport');
 require('./model/user');
 //connecting passport config
 require('./config/passportConfig');
-require('./model/news.model');
+require('./model/news');
 require('./model/sport');
 var cors = require('cors');
 
