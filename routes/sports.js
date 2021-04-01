@@ -7,7 +7,6 @@ const sportsSchema = require('../model/sport');
 
 router.get('/', async function (req, res, next) {
 	fetchSports();
-
 	await sportsSchema
 		.find({}, (error, sportsNews) => {
 			console.log('inside find');
