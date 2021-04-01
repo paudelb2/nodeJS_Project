@@ -71,6 +71,7 @@ router.get('/:id', function (req, res, next) {
 			res.json(newsData);
 		} else {
 			console.log('could not get news from db');
+			res.json({});
 		}
 	}).limit(3);
 });
