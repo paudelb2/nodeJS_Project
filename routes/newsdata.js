@@ -4,7 +4,7 @@ var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
 const User = require('../model/user');
 const jwt = require('jsonwebtoken');
-const NewsModel = require('../model/news.model');
+const NewsModel = require('../model/news');
 
 router.get('/', function (req, res, next) {
 	const token = localStorage.getItem('authToken');
